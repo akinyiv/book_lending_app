@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "books#index"
+  root "sessions#new"
 
   get "sessions/new"
   get "sessions/create"
@@ -8,9 +8,13 @@ Rails.application.routes.draw do
   get "users/create"
 
   # Authentication routes
+  get "/signup", to: "users#new"
+  post "/signup", to: "users#create"
   get "/login", to: "sessions#new", as: :login
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
+
+  resources :users, only: [:new, :create]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
