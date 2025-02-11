@@ -1,20 +1,28 @@
 Rails.application.routes.draw do
-  root "sessions#new"
-
-  get "sessions/new"
-  get "sessions/create"
-  get "sessions/destroy"
-  get "users/new"
-  get "users/create"
-
   # Authentication routes
-  get "/signup", to: "users#new"
+  get "/signup", to: "users#new", as: :signup
   post "/signup", to: "users#create"
+
   get "/login", to: "sessions#new", as: :login
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
 
-  resources :users, only: [:new, :create]
+  # Books routes
+  resources :books, only: [:index, :show] do
+    post :borrow, to: "borrowings#create", on: :member
+  end
+
+  # Borrowings routes
+  resources :borrowings, only: [:create, :destroy]
+
+  # User profile route
+  get "/profile", to: "profiles#profile", as: :user_profile
+
+  # Users routes (signup)
+  resources :users, only: [:new, :create], path: "signup"
+
+  # Root route
+  root "books#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

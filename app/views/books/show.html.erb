@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <div class="card shadow-sm p-4">
+    <h1 class="mb-3 text-primary"><%= @book.title %></h1>
+    <p class="text-muted"><strong>Author:</strong> <%= @book.author %></p>
+    <p class="text-muted"><strong>ISBN:</strong> <%= @book.isbn %></p>
+    
+    <div class="d-flex align-items-center mt-3">
+      <% if @book.available %>
+        <span class="badge bg-success">Available</span>
+      <% else %>
+        <span class="badge bg-danger">Borrowed</span>
+      <% end %>
+    </div>
+
+    <% if @book.available && logged_in? %>
+  <div class="mt-4">
+    <%= form_with url: borrowings_path, method: :post do |f| %>
+      <%= f.hidden_field :book_id, value: @book.id %>
+      <%= f.submit "Borrow Book", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% elsif !@book.available %>
+  <p class="text-warning mt-4">This book is currently borrowed.</p>
+<% end %>
+</div>
