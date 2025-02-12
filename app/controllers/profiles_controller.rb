@@ -6,5 +6,5 @@ class ProfilesController < ApplicationController
   def profile
     @user = current_user
     @borrowings = @user.borrowings.includes(:book)
-  end 
+  end
 end

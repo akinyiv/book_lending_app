@@ -7,12 +7,12 @@ class BorrowingsController < ApplicationController
     if @book.available?
       @borrowing = current_user.borrowings.create(book: @book, due_date: Date.today + 14.days)
       @book.update(available: false)
-      redirect_to user_profile_path, notice: 'Book borrowed successfully.'
+      redirect_to user_profile_path, notice: "Book borrowed successfully."
     else
-      redirect_to books_path, alert: 'This book is already borrowed.'
+      redirect_to books_path, alert: "This book is already borrowed."
     end
   end
-  
+
 
   def destroy
     @borrowing = current_user.borrowings.find_by(book_id: params[:id])

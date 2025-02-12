@@ -8,18 +8,18 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy", as: :logout
 
   # Books routes
-  resources :books, only: [:index, :show] do
+  resources :books, only: [ :index, :show ] do
     post :borrow, to: "borrowings#create", on: :member
   end
 
   # Borrowings routes
-  resources :borrowings, only: [:create, :destroy]
+  resources :borrowings, only: [ :create, :destroy ]
 
   # User profile route
   get "/profile", to: "profiles#profile", as: :user_profile
 
   # Users routes (signup)
-  resources :users, only: [:new, :create], path: "signup"
+  resources :users, only: [ :new, :create ], path: "signup"
 
   # Root route
   root "books#index"
