@@ -1,5 +1,13 @@
-require "test_helper"
+require "application_system_test_case"
 
-class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ]
+class UserFlowsTest < ApplicationSystemTestCase
+  test "user can sign up and log in" do
+    visit signup_path
+    fill_in "Name", with: "New User"
+    fill_in "Email", with: "newuser@example.com"
+    fill_in "Password", with: "password"
+    fill_in "Password confirmation", with: "password"
+    click_on "Sign Up"
+    assert_text "Welcome"
+  end
 end

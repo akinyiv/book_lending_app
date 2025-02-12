@@ -4,10 +4,10 @@ one:
   title: MyString
   author: MyString
   isbn: MyString
-  available: false
+  available: true
 
 two:
   title: MyString
   author: MyString
-  isbn: MyString
+  isbn: MyString1
   available: false
