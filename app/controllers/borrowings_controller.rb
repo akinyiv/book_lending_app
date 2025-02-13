@@ -3,7 +3,7 @@ class BorrowingsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @book = Book.find(params[:book_id]) # Ensure book_id is received
+    @book = Book.find(params[:book_id])
     if @book.available?
       @borrowing = current_user.borrowings.create(book: @book, due_date: Date.today + 14.days)
       @book.update(available: false)
