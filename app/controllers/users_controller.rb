@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to login_path, notice: "Account created! Please log in"
     else
+      flash.now[:error] = "Sign-up failed. Please check the errors."
       render :new, status: :unprocessable_entity
     end
   end

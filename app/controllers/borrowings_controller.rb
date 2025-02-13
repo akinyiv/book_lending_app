@@ -15,11 +15,10 @@ class BorrowingsController < ApplicationController
 
 
   def destroy
-    @borrowing = current_user.borrowings.find_by(book_id: params[:id])
+    @borrowing = current_user.borrowings.find(params[:id])
+
     if @borrowing
-      @borrowing.update(returned_at: Time.now)
-      @book = @borrowing.book
-      @book.update(available: true)
+      @borrowing.return_book
       redirect_to user_profile_path, notice: "Book returned successfully."
     else
       redirect_to user_profile_path, alert: "Something went wrong."

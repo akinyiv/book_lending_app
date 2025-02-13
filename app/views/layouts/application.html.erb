@@ -21,7 +21,7 @@
           <% if logged_in? %>
             <li class="nav-item"><a class="nav-link" href="<%= user_profile_path %>">Profile</a></li>
             <li class="nav-item">
-              <%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete },  class: "nav-link" %>
+              <%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link" %>
             </li>
           <% else %>
             <li class="nav-item"><a class="nav-link" href="<%= login_path %>">Login</a></li>
@@ -33,6 +33,19 @@
   </nav>
 
   <main class="container my-4 flex-grow-1">
+  <% flash.each do |type, message| %>
+    <% alert_class = case type.to_sym
+        when :notice then "alert-success"
+        when :alert then "alert-danger"
+        else "alert-info"
+      end
+    %>
+    <div data-controller="flash" class="alert <%= alert_class %> alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+  
     <%= yield %>
   </main>
 

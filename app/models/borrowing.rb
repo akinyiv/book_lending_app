@@ -4,6 +4,11 @@ class Borrowing < ApplicationRecord
 
   before_create :set_due_date
 
+  def return_book
+    update(returned_at: Time.current)
+    book.update(available: true)
+  end
+
   private
 
   def set_due_date

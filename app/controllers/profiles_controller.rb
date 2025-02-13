@@ -5,6 +5,7 @@ class ProfilesController < ApplicationController
 
   def profile
     @user = current_user
-    @borrowings = @user.borrowings.includes(:book)
+    @borrowed_books = @user.borrowings.includes(:book).where(returned_at: nil)
+    @returned_books = @user.borrowings.includes(:book).where.not(returned_at: nil)
   end
 end
